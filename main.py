@@ -15,6 +15,9 @@ tdj = v.t_disparos_jugador      # Mi tablero de disparos (empieza vacío)
 # 2. BUCLE PRINCIPAL DE LA PARTIDA
 while True:
     print("\n" + "="*50)
+    print("ESTADO DE MI FLOTA (TBJ):")
+    print(tbj)
+    print("\n" + "="*50)
     print("ESTADO DE TUS DISPAROS (TDJ):")
     print(tdj)
     print("="*50)
@@ -39,7 +42,7 @@ while True:
                 
                 # Si he acertado un barco ('O'), ¡repito turno!
                 if valor_casilla_antes == "O":
-                    print("🎉 ¡Has acertado! ¡Repites turno!")
+                    print("¡Has acertado! ¡Repites turno!")
                     print(tdj) # Muestro cómo va mi tablero de disparos actualizado
                 else:
                     # Si fue agua o ya estaba disparado, pierdo el turno
