@@ -101,9 +101,9 @@ while turno_jugador:
             coordenada = (fila_usuario, columna_usuario)
             f.disparar(coordenada, tbr, tdj)
         else:
-            print("❌ Coordenadas fuera de rango. Deben estar entre 0 y 9. Pierdes el turno por bobo.")
+            print("Coordenadas fuera de rango. Deben estar entre 0 y 9. Pierdes el turno por bobo.")
     except ValueError:
-        print("❌ Por favor, introduce un número válido.")
+        print("Por favor, introduce un número válido.")
 
     # --- TURNO DE LA MÁQUINA ---
     print("\n--- TURNO DE LA MÁQUINA ---")
@@ -154,15 +154,18 @@ while True:
                 
                 # Si he acertado un barco ('O'), ¡repito turno!
                 if valor_casilla_antes == "O":
-                    print("🎉 ¡Has acertado! ¡Repites turno!")
+                    print("¡Has acertado! ¡Repites turno!")
                     print(tdj) # Muestro cómo va mi tablero de disparos actualizado
                 else:
                     # Si fue agua o ya estaba disparado, pierdo el turno
                     turno_jugador = False
             else:
-                print("❌ Coordenadas fuera de rango. Deben estar entre 0 y 9.")
+                print("Coordenadas fuera de rango. Deben estar entre 0 y 9.")
         except ValueError:
-            print("❌ Por favor, introduce un número válido.")
+            print("Por favor, introduce un número válido.")
+    if f.comprobar_ganador(tbr):
+        print("VICTORIA - HAS HUNDIDO LA FLOTA RIVAL")
+        brake
 
     # --- TURNO DE LA MÁQUINA ---
     print("\n" + "-"*30)
@@ -175,10 +178,13 @@ while True:
         acerto = f.disparo_maquina(tbj)
             
         if acerto:
-            print("🤖 ¡La máquina ha acertado! ¡Vuelve a disparar!")
+            print("¡La máquina ha acertado! ¡Vuelve a disparar!")
         else:
-            print("🤖 La máquina ha fallado. Cede el turno.")
+            print("La máquina ha fallado. Cede el turno.")
             turno_maquina = False
+    if f.comprobar_ganador(tbj):
+        print("GAME OVER")
+        break
                 
     # --- VISUALIZACIÓN DE TUS BARCOS TRAS EL FIN DEL TURNO RIVAL ---
     print("\n" + "="*50)
@@ -186,3 +192,5 @@ while True:
     print("="*50)
     print(tbj)
     print("="*50 + "\n")
+
+    

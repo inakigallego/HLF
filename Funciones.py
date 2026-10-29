@@ -48,7 +48,7 @@ def colocar_barcos(tablero):
         colocado = False        
         while not colocado:# Este bucle 'while' intenta colocar el barco una y otra vez hasta que encuentra un hueco libre que no choque con otro barco.
             barco = crear_barco(eslora) # Creo un barco usando la función del apartado 4           
-            espacio_libre = True # Se comprueba si todas las casillas de este barco están libres (' ')
+            espacio_libre = True # Se comprueba si todas las casillas de este barco están libres ('_')
             for casilla in barco:
                 fila = casilla[0]
                 columna = casilla[1]
@@ -61,33 +61,6 @@ def colocar_barcos(tablero):
                 colocado = True # Marco el barco como colocado y se sale del while
     return tablero
 
-"""No me vale, lo terminaré borrando
-def disparar(casilla, tablero):
-    
-    Apartado 3 - Recibe una casilla (fila, columna) y el tablero.
-    Comprueba si acierta en un barco o cae en agua y actualiza el tablero.
-        1-Mira qué hay en esa casilla concreta del tablero.
-        2-Si encuentra una "O" (un barco), la borra y pone una "X" (¡Tocado!).
-        3-Si encuentra un espacio vacío "_" (agua), lo borra y pone una "A" (¡Agua!).
-    
-    fila = casilla[0]
-    columna = casilla[1]
-        
-    if tablero[fila, columna] == "O": # 1. Compruebo si hay un barco ('O')
-        tablero[fila, columna] = "X"   # Como SÍ hay barco, cambio la casilla a X de Tocado y lanzo el mensaje
-        print("¡Tocado!")
-        
-    elif tablero[fila, columna] == "_": # 2. Compruebo si hay espacio vacío (' ')
-        tablero[fila, columna] = "A"   # Como NO hay un barco, SÍ está vacio, cambio la casilla A de Agua
-        print("¡Agua!")
-        
-    else: # 3. Por si acaso ya se había disparado ahí antes. Tengo que pensar si corre turno o no: no lo he decidido
-        print("No te enteras!!! Ya habías disparado en esta casilla.")
-    
-    OJO!!! con esta función tengo un problema: disparo, me lo marca en el tablero del rival pero no lo recoge en el mío
-"""
-
-
 def disparar(casilla, tablero_rival, tablero_disparos):
     """
     Apartado 3 - Recibe una casilla (fila, columna) y el tablero.
@@ -97,8 +70,8 @@ def disparar(casilla, tablero_rival, tablero_disparos):
             1-Mira qué hay en esa casilla concreta del tablero.
             2-Si encuentra una "O" (un barco), la borra y pone una "X" (¡Tocado!).
             3-Si encuentra un espacio vacío "_" (agua), lo borra y pone una "A" (¡Agua!).
-            4-Si disparo sobre un disparo y ejecutado, estoy por decidir si pasa turno o no
-            5-De momento no he resuelto que cada vez que corra el main no se reinicien los tableros
+            4-Si disparo sobre un disparo y ejecutado, estoy por decidir si pasa turno o no: solucionado
+            5-De momento no he resuelto que cada vez que corra el main no se reinicien los tableros: solucionaado
     """
     fila = casilla[0]
     columna = casilla[1]
@@ -134,10 +107,59 @@ def disparo_maquina(tablero_jugador):
     # Ahora toca el impacto en mi tablero de barcos
     if tablero_jugador[fila, columna] == "O":
         tablero_jugador[fila, columna] = "X"
-        print(f"¡La máquina ha disparado a ", fila,",", columna, "y... ¡TE HA DADO (Tocado)! 💥")
+        print(f"¡La máquina ha disparado a ", fila,",", columna, "y... ¡TE HA DADO (Tocado)!")
         return True #Como ha acertado, debe repetir disparo
     else:
         tablero_jugador[fila, columna] = "A"
-        print(f"¡La máquina ha disparado a ", fila,",", columna, "y... ha caído al agua! 🌊")
+        print(f"¡La máquina ha disparado a ", fila,",", columna, "y... ha caído al agua!")
         return False # cede el turno por fallar
+
+def comprobar_ganador(tablero):
+    """
+    Comprueba si quedan barcos ('O') en el tablero.
+    Devuelve True si ya no queda ninguno (fin de partida), o False si la batalla continúa.
+    """
+    # np.any busca si existe al menos una 'O' en el tablero y devuelve True
+    # Si 'O' ya no está en ninguna parte, 'not' lo convierte en True (¡todos hundidos!). ¿Lo hago al revés?
+    return not np.any(tablero == "O")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    """No me vale, lo terminaré borrando
+def disparar(casilla, tablero):
+    
+    Apartado 3 - Recibe una casilla (fila, columna) y el tablero.
+    Comprueba si acierta en un barco o cae en agua y actualiza el tablero.
+        1-Mira qué hay en esa casilla concreta del tablero.
+        2-Si encuentra una "O" (un barco), la borra y pone una "X" (¡Tocado!).
+        3-Si encuentra un espacio vacío "_" (agua), lo borra y pone una "A" (¡Agua!).
+    
+    fila = casilla[0]
+    columna = casilla[1]
+        
+    if tablero[fila, columna] == "O": # 1. Compruebo si hay un barco ('O')
+        tablero[fila, columna] = "X"   # Como SÍ hay barco, cambio la casilla a X de Tocado y lanzo el mensaje
+        print("¡Tocado!")
+        
+    elif tablero[fila, columna] == "_": # 2. Compruebo si hay espacio vacío (' ')
+        tablero[fila, columna] = "A"   # Como NO hay un barco, SÍ está vacio, cambio la casilla A de Agua
+        print("¡Agua!")
+        
+    else: # 3. Por si acaso ya se había disparado ahí antes. Tengo que pensar si corre turno o no: no lo he decidido
+        print("No te enteras!!! Ya habías disparado en esta casilla.")
+    
+    OJO!!! con esta función tengo un problema: disparo, me lo marca en el tablero del rival pero no lo recoge en el mío
+"""
     
