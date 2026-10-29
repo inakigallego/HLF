@@ -161,7 +161,7 @@ def turno_disparo_jugador(tbr, tdj):
         return False # La partida continúa
 
 def turno_disparo_maquina(tbj):
-    # 3.2--- TURNO DE LA MÁQUINA ---
+    # 3.2--- TURNO DE LA MÁQUINA ----
         print("\n" + "-"*30)
         print("TURNO DE LA MÁQUINA ATACANDO...")
         print("-"*30)

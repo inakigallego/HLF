@@ -24,11 +24,11 @@ while True:
 
     # 3.1 TURNO DE DISPARO DEL JUGADOR
     if f.turno_disparo_jugador(tbr, tdj):
-        break # Si devuelve True, he ganado y salimos del juego
+        break # Si devuelve True, he ganado y salimos del juego.
 
     # TURNO DE DISPARO DE LA MÁQUINA
     if f.turno_disparo_maquina(tbj):
-        break # Si devuelve True, la máquina gana y salimos del juego
+        break # Si devuelve True, la máquina gana y salimos del juego.
 
 # 4 --- VISUALIZACIÓN DE MIS BARCOS TRAS EL FIN DEL TURNO RIVAL ---
 print("\n" + "="*50)
