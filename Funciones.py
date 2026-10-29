@@ -2,23 +2,23 @@ import numpy as np
 import random
 
 
-#Función para crear tableros
-def crear_tablero():
+
+def crear_tablero():#Función para crear tableros
     """
     Apartado 1 - Crea un tablero de 10x10
     """
     tablero = np.full((10, 10), "_")# Rellenar con espacios vacíos es un problema a la hora de mirar las coordenadas en las columnas. Meto con guión bajo
     return tablero
 
-def crear_barco(eslora):
+def crear_barco(eslora): #Función para crear barcos
     """
     Apartado 4 - Crea una lista de casillas aleatorias para un barco según su eslora.
     Ejemplo: si eslora = 3, devolverá algo como [(2, 4), (2, 5), (2, 6)]
     """
-    # 1. Elijo al azar la orientación: 'H' (horizontal) o 'V' (vertical)
-    orientacion = random.choice(["H", "V"])
+    
+    orientacion = random.choice(["H", "V"]) # 1. Elijo al azar la orientación: 'H' (horizontal) o 'V' (vertical)
     # 2. Elijo la fila y la columna de inicio de forma aleatoria
-    if orientacion == "H":
+    if orientacion == "H": 
         # Si es horizontal, la fila puede ser de 0 a 9, 
         # pero la columna debe dejar espacio para que quepa el barco (de 0 a 10 - eslora)
         fila = random.randint(0, 9)
@@ -33,17 +33,17 @@ def crear_barco(eslora):
     for i in range(eslora):
         if orientacion == "H":# Si es horizontal, avanzamos en la columna
             casilla = (fila, columna + i)
-        else:# Si es vertical, avanzamos en la fila
+        else:# Si no es horizontal, es vertical, avanzamos en la fila
             casilla = (fila + i, columna)
         barco.append(casilla)        
     return barco
 
-def colocar_barcos(tablero):
+def colocar_barcos(tablero): # Función para colocar los barcos
     """
     Apartado 2 - Coloca los 6 barcos de la flota (1 de 4, 2 de 3 y 3 de 2) 
-    de manera aleatoria y sin que se choquen entre ellos.
+    de manera aleatoria y sin que se choquen entre ellos. IMPORTANTE-. colocar primero el de eslora 4
     """
-    esloras = [4, 3, 3, 2, 2, 2]# 1. Defino la lista con las esloras de los 6 barcos (de mayor a menor)
+    esloras = [4, 3, 3, 2, 2, 2]# 1. Defino la lista con las esloras de los 6 barcos (de mayor a menor para colocar primero el de eslora 4)
     for eslora in esloras:# 2. Recorro cada eslora para ir colocando los barcos uno a uno
         colocado = False        
         while not colocado:# Este bucle 'while' intenta colocar el barco una y otra vez hasta que encuentra un hueco libre que no choque con otro barco.
@@ -123,6 +123,65 @@ def comprobar_ganador(tablero):
     # Si 'O' ya no está en ninguna parte, 'not' lo convierte en True (¡todos hundidos!). ¿Lo hago al revés?
     return not np.any(tablero == "O")
 
+def turno_disparo_jugador(tbr, tdj):
+    # 3.1 BUCLE DE MI TURNO (Permite repetir si acierto) ---
+        turno_jugador = True
+        while turno_jugador:
+            print("\n--- TU TURNO DE DISPARO ---")
+            try:
+                fila_usuario = int(input("Introduce la fila (de 0 a 9): "))
+                columna_usuario = int(input("Introduce la columna (de 0 a 9): "))
+                
+                if 0 <= fila_usuario <= 9 and 0 <= columna_usuario <= 9:
+                    coordenada = (fila_usuario, columna_usuario)
+                    
+                    # Compruebo qué hay en el tablero del rival antes de disparar
+                    # para saber si voy a acertar y repetir turno
+                    valor_casilla_antes = tbr[fila_usuario, columna_usuario]
+                    
+                    # Ejecuto el disparo
+                    disparar(coordenada, tbr, tdj)
+
+                    if comprobar_ganador(tbr): # Compruebo si he ganado o no
+                        print("VICTORIA - HAS HUNDIDO LA FLOTA RIVAL")
+                        return True # La partida termina
+                    
+                    # Si he acertado un barco ('O'), ¡repito turno!
+                    if valor_casilla_antes == "O":
+                        print("¡Has acertado! ¡Repites turno!")
+                        print(tdj) # Muestro cómo va mi tablero de disparos actualizado
+                    else:
+                        # Si fue agua o ya estaba disparado, pierdo el turno
+                        turno_jugador = False
+                else:
+                    print("Coordenadas fuera de rango. Deben estar entre 0 y 9.")
+            except ValueError:
+                print("Por favor, introduce un número válido.")
+    
+        return False # La partida continúa
+
+def turno_disparo_maquina(tbj):
+    # 3.2--- TURNO DE LA MÁQUINA ---
+        print("\n" + "-"*30)
+        print("TURNO DE LA MÁQUINA ATACANDO...")
+        print("-"*30)
+            
+        turno_maquina = True
+        while turno_maquina:
+            # La función devuelve True si acertó y False si falló
+            acerto = disparo_maquina(tbj)
+            
+            if comprobar_ganador(tbj): # Compruebo si ha ganado la máquina
+                print("GAME OVER")
+                return True # La partida termina
+
+            if acerto:
+                print("¡La máquina ha acertado! ¡Vuelve a disparar!")
+            else:
+                print("La máquina ha fallado. Cede el turno.")
+                turno_maquina = False
+            
+        return False # la partida continúa
 
 
 
@@ -137,7 +196,8 @@ def comprobar_ganador(tablero):
 
 
 
-    """No me vale, lo terminaré borrando
+
+"""No me vale, lo terminaré borrando
 def disparar(casilla, tablero):
     
     Apartado 3 - Recibe una casilla (fila, columna) y el tablero.

@@ -21,8 +21,25 @@ while True:
     print("ESTADO DE TUS DISPAROS (TDJ):")
     print(tdj)
     print("="*50)
-    
-    # --- BUCLE DE MI TURNO (Permite repetir si acierto) ---
+
+    # 3.1 TURNO DE DISPARO DEL JUGADOR
+    if f.turno_disparo_jugador(tbr, tdj):
+        break # Si devuelve True, he ganado y salimos del juego
+
+    # TURNO DE DISPARO DE LA MÁQUINA
+    if f.turno_disparo_maquina(tbj):
+        break # Si devuelve True, la máquina gana y salimos del juego
+
+# 4 --- VISUALIZACIÓN DE MIS BARCOS TRAS EL FIN DEL TURNO RIVAL ---
+print("\n" + "="*50)
+print("MIRA TU TABLERO DE BARCOS (TBJ) TRAS EL ATAQUE RIVAL:")
+print("="*50)
+print(tbj)
+print("="*50 + "\n")
+
+
+"""
+    # 3.1 BUCLE DE MI TURNO (Permite repetir si acierto) ---
     turno_jugador = True
     while turno_jugador:
         print("\n--- TU TURNO DE DISPARO ---")
@@ -56,14 +73,14 @@ while True:
         print("VICTORIA - HAS HUNDIDO LA FLOTA RIVAL")
         break
 
-    # --- TURNO DE LA MÁQUINA ---
+    # 3.2--- TURNO DE LA MÁQUINA ---
     print("\n" + "-"*30)
     print("TURNO DE LA MÁQUINA ATACANDO...")
     print("-"*30)
         
     turno_maquina = True
     while turno_maquina:
-        # La función nos devuelve True si acertó y False si falló
+        # La función devuelve True si acertó y False si falló
         acerto = f.disparo_maquina(tbj)
             
         if acerto:
@@ -74,11 +91,5 @@ while True:
 
     if f.comprobar_ganador(tbj):
         print("GAME OVER")
-        break
+        break"""
                 
-    # --- VISUALIZACIÓN DE TUS BARCOS TRAS EL FIN DEL TURNO RIVAL ---
-    print("\n" + "="*50)
-    print("MIRA TU TABLERO DE BARCOS (TBJ) TRAS EL ATAQUE RIVAL:")
-    print("="*50)
-    print(tbj)
-    print("="*50 + "\n")
