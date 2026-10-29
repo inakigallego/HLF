@@ -49,6 +49,10 @@ while True:
         except ValueError:
             print("Por favor, introduce un número válido.")
 
+    if f.comprobar_ganador(tbr):
+        print("VICTORIA - HAS HUNDIDO LA FLOTA RIVAL")
+        break
+
     # --- TURNO DE LA MÁQUINA ---
     print("\n" + "-"*30)
     print("TURNO DE LA MÁQUINA ATACANDO...")
@@ -64,6 +68,10 @@ while True:
         else:
             print("La máquina ha fallado. Cede el turno.")
             turno_maquina = False
+
+    if f.comprobar_ganador(tbj):
+        print("GAME OVER")
+        break
                 
     # --- VISUALIZACIÓN DE TUS BARCOS TRAS EL FIN DEL TURNO RIVAL ---
     print("\n" + "="*50)

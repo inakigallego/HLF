@@ -165,7 +165,7 @@ while True:
             print("Por favor, introduce un número válido.")
     if f.comprobar_ganador(tbr):
         print("VICTORIA - HAS HUNDIDO LA FLOTA RIVAL")
-        brake
+        break
 
     # --- TURNO DE LA MÁQUINA ---
     print("\n" + "-"*30)
