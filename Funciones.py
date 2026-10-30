@@ -196,30 +196,3 @@ def turno_disparo_maquina(tbj):
 
 
 
-
-"""No me vale, lo terminaré borrando
-def disparar(casilla, tablero):
-    
-    Apartado 3 - Recibe una casilla (fila, columna) y el tablero.
-    Comprueba si acierta en un barco o cae en agua y actualiza el tablero.
-        1-Mira qué hay en esa casilla concreta del tablero.
-        2-Si encuentra una "O" (un barco), la borra y pone una "X" (¡Tocado!).
-        3-Si encuentra un espacio vacío "_" (agua), lo borra y pone una "A" (¡Agua!).
-    
-    fila = casilla[0]
-    columna = casilla[1]
-        
-    if tablero[fila, columna] == "O": # 1. Compruebo si hay un barco ('O')
-        tablero[fila, columna] = "X"   # Como SÍ hay barco, cambio la casilla a X de Tocado y lanzo el mensaje
-        print("¡Tocado!")
-        
-    elif tablero[fila, columna] == "_": # 2. Compruebo si hay espacio vacío (' ')
-        tablero[fila, columna] = "A"   # Como NO hay un barco, SÍ está vacio, cambio la casilla A de Agua
-        print("¡Agua!")
-        
-    else: # 3. Por si acaso ya se había disparado ahí antes. Tengo que pensar si corre turno o no: no lo he decidido
-        print("No te enteras!!! Ya habías disparado en esta casilla.")
-    
-    OJO!!! con esta función tengo un problema: disparo, me lo marca en el tablero del rival pero no lo recoge en el mío
-"""
-    
